@@ -1,0 +1,23 @@
+version: 0.2
+phases:
+  install:
+    runtime-versions:
+      python: 3.11
+    commands:
+      - echo Installing Terraform 1.9.5
+      - curl -fsSL https://releases.hashicorp.com/terraform/1.9.5/terraform_1.9.5_linux_amd64.zip -o /tmp/terraform.zip
+      - unzip -o /tmp/terraform.zip -d /usr/local/bin
+      - terraform version
+  pre_build:
+    commands:
+      - echo Initializing Terraform
+      - terraform init
+      - terraform validate
+      - terraform plan -out=tfplan
+  build:
+    commands:
+      - echo Applying Terraform plan
+      - terraform apply -auto-approve tfplan
+artifacts:
+  files:
+    - '**/*'
