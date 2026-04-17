@@ -17,3 +17,7 @@ output "codestar_connection_arn" {
   description = "ARN of the CodeStar Connection for GitHub."
   value       = var.codestar_connection_arn
 }
+
+output "debug_pipeline_stage_2_action_2" {
+  value = aws_codepipeline.pipeline.stage[1].action[1].configuration
+}
