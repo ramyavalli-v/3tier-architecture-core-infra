@@ -12,3 +12,8 @@ output "artifact_bucket" {
   description = "S3 bucket used for pipeline artifacts."
   value       = aws_s3_bucket.artifact_store.bucket
 }
+
+output "codestar_connection_arn" {
+  description = "ARN of the CodeStar Connection for GitHub."
+  value       = var.codestar_connection_arn
+}

@@ -24,10 +24,9 @@ variable "github_branch" {
   default     = "main"
 }
 
-variable "github_oauth_token" {
-  description = "GitHub OAuth token used by CodePipeline to access the repository."
+variable "codestar_connection_arn" {
+  description = "ARN of the CodeStar Connection for GitHub."
   type        = string
-  sensitive   = true
 }
 
 variable "buildspec_path" {

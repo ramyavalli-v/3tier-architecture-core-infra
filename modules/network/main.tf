@@ -1,8 +1,8 @@
 locals {
-  public_subnet_cidrs      = [for idx in range(length(var.azs)) : cidrsubnet(var.vpc_cidr, 4, idx)]
-  private_web_subnet_cidrs = [for idx in range(length(var.azs)) : cidrsubnet(var.vpc_cidr, 4, idx + 8)]
-  private_app_subnet_cidrs = [for idx in range(length(var.azs)) : cidrsubnet(var.vpc_cidr, 4, idx + 16)]
-  private_db_subnet_cidrs  = [for idx in range(length(var.azs)) : cidrsubnet(var.vpc_cidr, 4, idx + 24)]
+  public_subnet_cidrs      = [for idx in range(length(var.azs)) : cidrsubnet(var.vpc_cidr, 5, idx)]
+  private_web_subnet_cidrs = [for idx in range(length(var.azs)) : cidrsubnet(var.vpc_cidr, 5, idx + 8)]
+  private_app_subnet_cidrs = [for idx in range(length(var.azs)) : cidrsubnet(var.vpc_cidr, 5, idx + 16)]
+  private_db_subnet_cidrs  = [for idx in range(length(var.azs)) : cidrsubnet(var.vpc_cidr, 5, idx + 24)]
 }
 
 resource "aws_vpc" "main" {

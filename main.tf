@@ -24,12 +24,12 @@ module "security" {
 module "cicd" {
   source = "./modules/cicd"
 
-  name_prefix        = local.name_prefix
-  environment        = var.environment
-  github_owner       = var.github_owner
-  github_repo        = var.github_repo
-  github_branch      = var.github_branch
-  github_oauth_token = var.github_oauth_token
-  buildspec_path     = "buildspec.yml"
-  tags               = local.common_tags
+  name_prefix             = local.name_prefix
+  environment             = var.environment
+  github_owner            = var.github_owner
+  github_repo             = var.github_repo
+  github_branch           = var.github_branch
+  codestar_connection_arn = var.codestar_connection_arn
+  buildspec_path          = "buildspec.yml"
+  tags                    = local.common_tags
 }

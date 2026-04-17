@@ -61,8 +61,7 @@ variable "github_branch" {
   default     = "main"
 }
 
-variable "github_oauth_token" {
-  description = "GitHub OAuth token for CodePipeline source access."
+variable "codestar_connection_arn" {
+  description = "ARN of the AWS CodeStar Connection for GitHub. Create this via AWS Console: https://console.aws.amazon.com/codesuite/connections"
   type        = string
-  sensitive   = true
 }

@@ -18,3 +18,10 @@ provider "aws" {
   alias  = "secondary"
   region = var.secondary_region
 }
+
+
+provider "aws" {
+  alias  = "pipeline"
+  region = var.secondary_region
+}
+

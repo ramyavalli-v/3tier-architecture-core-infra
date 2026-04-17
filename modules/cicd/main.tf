@@ -1,15 +1,22 @@
-resource "aws_s3_bucket" "artifact_store" {
-  bucket_prefix = "${var.name_prefix}-${var.environment}-pipeline-artifacts-"
-  acl           = "private"
-  force_destroy = true
+locals {
+  codestar_connection_arn = var.codestar_connection_arn
+}
 
-  versioning {
-    enabled = true
-  }
+resource "aws_s3_bucket" "artifact_store" {
+  bucket_prefix = "c3ops-artifacts-"
+  force_destroy = true
 
   tags = merge(var.tags, {
     Name = "${var.name_prefix}-${var.environment}-pipeline-artifacts"
   })
+}
+
+resource "aws_s3_bucket_versioning" "artifact_store" {
+  bucket = aws_s3_bucket.artifact_store.id
+
+  versioning_configuration {
+    status = "Enabled"
+  }
 }
 
 resource "aws_iam_role" "codebuild_role" {
@@ -154,16 +161,15 @@ resource "aws_codepipeline" "pipeline" {
     action {
       name             = "Source"
       category         = "Source"
-      owner            = "ThirdParty"
-      provider         = "GitHub"
+      owner            = "AWS"
+      provider         = "CodeStarSourceConnection"
       version          = "1"
       output_artifacts = ["source_output"]
 
       configuration = {
-        Owner      = var.github_owner
-        Repo       = var.github_repo
-        Branch     = var.github_branch
-        OAuthToken = var.github_oauth_token
+        ConnectionArn    = local.codestar_connection_arn
+        FullRepositoryId = "${var.github_owner}/${var.github_repo}"
+        BranchName       = var.github_branch
       }
     }
   }
