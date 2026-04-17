@@ -22,8 +22,8 @@ The repository deploys a 3-tier AWS network architecture for the `C3Ops Website`
 ### AWS details
 
 - AWS Account: `652253416761`
-- Primary Region: `ap-south-2`
-- Secondary Region: `ap-south-1`
+- Primary Region: `ap-south-1`
+- Secondary Region: `ap-south-2`
 - Terraform version requirement: `>= 1.9.5`
 
 ## Repository structure
@@ -43,7 +43,7 @@ The project uses an S3 backend defined in `backend.tf`:
 
 - bucket: `c3ops-terraform-state1`
 - key: `core-infra/terraform.tfstate`
-- region: `ap-south-2`
+- region: `ap-south-1`
 - encrypt: `true`
 - required_lock: `true`
 

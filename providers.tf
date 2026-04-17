@@ -1,13 +1,13 @@
 variable "region" {
   description = "Primary AWS region for core infrastructure deployments."
   type        = string
-  default     = "ap-south-2"
+  default     = "ap-south-1"
 }
 
 variable "secondary_region" {
   description = "Secondary AWS region for DR or future cross-region resources."
   type        = string
-  default     = "ap-south-1"
+  default     = "ap-south-2"
 }
 
 provider "aws" {

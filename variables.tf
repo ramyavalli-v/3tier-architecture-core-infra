@@ -30,7 +30,7 @@ variable "vpc_cidr" {
 variable "azs" {
   description = "Availability zones to deploy subnets into."
   type        = list(string)
-  default     = ["ap-south-2a", "ap-south-2b"]
+  default     = ["ap-south-1a", "ap-south-1b"]
 }
 
 variable "enable_nat_gateway" {

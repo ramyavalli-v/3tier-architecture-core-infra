@@ -5,7 +5,7 @@ Terraform modules and environment configuration for a 3-tier AWS architecture su
 - Website: `C3Ops Website`
 - Application: `Cloud Binary`
 - Environments: `preprod`, `prod`
-- Deployment region: `ap-south-2`
+- Deployment region: `ap-south-1`
 - Secondary region available as `ap-south-1`
 - Core network components: VPC, public/private subnets, IGW, NAT Gateway, route tables, NACLs, security groups
 
@@ -46,7 +46,7 @@ terraform apply -var-file="environments/prod/terraform.tfvars"
 
 - The project is designed for Terraform `>= 1.9.5`.
 - AWS Account: `652253416761`
-- Region: `ap-south-2`
+- Region: `ap-south-1`
 - Core infra prefix: `c3ops_preprod`
 - AWS CodeBuild support is included via `buildspec.yml`.
 - AWS CodePipeline source uses GitHub and requires `github_owner`, `github_repo`, and `github_oauth_token`.
