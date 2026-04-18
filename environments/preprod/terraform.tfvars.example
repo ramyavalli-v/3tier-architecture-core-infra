@@ -1,0 +1,11 @@
+environment             = "preprod"
+region                  = "ap-south-1"
+secondary_region        = "ap-south-2"
+website_name            = "C3Ops Website"
+application_name        = "Cloud Binary"
+core_infra_name         = "c3ops_preprod"
+github_owner            = "ramyavalli-v"
+github_repo             = "3tier-architecture-core-infra"
+github_branch           = "main"
+codestar_connection_arn = "arn:aws:codeconnections:ap-south-1:652253416761:connection/9b87a2db-0e28-4151-b0a4-97ed40db0b58"
+ 
