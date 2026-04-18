@@ -13,7 +13,7 @@ phases:
       - echo Initializing Terraform
       - terraform init
       - terraform validate
-      - terraform plan -var-file=environments/preprod/terraform.tfvars -out=tfplan
+      - terraform plan -var-file=environments/preprod/terraform.tfvars.example -out=tfplan
   build:
     commands:
       - echo Applying Terraform plan
