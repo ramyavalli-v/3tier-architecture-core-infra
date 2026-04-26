@@ -141,17 +141,6 @@ resource "aws_iam_role_policy" "codepipeline_policy" {
           "codepipeline:StartPipelineExecution"
         ]
         Resource = "*"
-      },
-      {
-        Effect = "Allow"
-        Action = [
-          "codeconnections:GetConnection",
-          "codeconnections:UseConnection",
-          "codeconnections:ListConnections"
-        ]
-        Resource = [
-          local.codestar_connection_arn
-        ]
       }
     ]
   })
@@ -178,7 +167,7 @@ resource "aws_codepipeline" "pipeline" {
       output_artifacts = ["source_output"]
 
       configuration = {
-        ConnectionArn    = "arn:aws:codeconnections:ap-south-1:652253416761:connection/9b87a2db-0e28-4151-b0a4-97ed40db0b58"
+        ConnectionArn    = local.codestar_connection_arn
         FullRepositoryId = "${var.github_owner}/${var.github_repo}"
         BranchName       = var.github_branch
       }
