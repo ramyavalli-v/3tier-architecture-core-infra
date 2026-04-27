@@ -41,7 +41,7 @@ jobs:
         run: terraform validate
 
       - name: Terraform Plan (Preprod)
-        run: terraform plan -var-file=environments/preprod/terraform.tfvars -out=tfplan
+        run: terraform plan -var-file="environments/preprod/terraform.tfvars" -out=tfplan
 
       - name: Terraform Apply (Preprod)
         if: github.event_name == 'push'
