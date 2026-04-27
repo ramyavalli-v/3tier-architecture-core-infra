@@ -1,0 +1,80 @@
+name: Terraform Core Infra CI/CD
+
+on:
+  pull_request:
+    branches: [ "main" ]
+  push:
+    branches: [ "main" ]
+
+permissions:
+  id-token: write
+  contents: read
+
+env:
+  TF_VERSION: "1.9.5"
+
+jobs:
+  terraform-preprod:
+    name: Terraform Apply – Preprod
+    runs-on: ubuntu-latest
+    environment: preprod
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Validate
+        run: terraform validate
+
+      - name: Terraform Plan (Preprod)
+        run: terraform plan -var-file=environments/preprod/terraform.tfvars -out=tfplan
+
+      - name: Terraform Apply (Preprod)
+        if: github.event_name == 'push'
+        run: terraform apply -auto-approve tfplan
+
+
+  terraform-prod:
+    name: Terraform Apply – PROD
+    needs: terraform-preprod
+    runs-on: ubuntu-latest
+    environment: prod   # 👈 manual approval
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Setup Terraform
+        uses: hashicorp/setup-terraform@v3
+        with:
+          terraform_version: ${{ env.TF_VERSION }}
+
+      - name: Configure AWS credentials (OIDC)
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ vars.AWS_ROLE_TO_ASSUME }}
+          aws-region: ${{ vars.AWS_REGION }}
+
+      - name: Terraform Init
+        run: terraform init
+
+      - name: Terraform Plan (Prod)
+        run: terraform plan -var-file=environments/prod/terraform.tfvars -out=tfplan
+
+      - name: Terraform Apply (Prod)
+        run: terraform apply -auto-approve tfplan
+
