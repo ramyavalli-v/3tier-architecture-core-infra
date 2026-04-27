@@ -54,3 +54,40 @@ terraform apply -var-file="environments/prod/terraform.tfvars"
 ## Detailed Deployment Guide
 
 See `DEPLOYMENT.md` for full architecture details and step-by-step CI/CD deployment instructions.
+
+# 3‑Tier Architecture – Core Infrastructure CI/CD
+
+This repository manages AWS core infrastructure using Terraform.
+
+## CI/CD Model
+The infrastructure is deployed using **GitHub Actions + AWS OIDC**, replacing
+legacy AWS CodePipeline and CodeBuild.
+
+## Environments
+- **Preprod** – automatic deployment on merge to `main`
+- **Prod** – manual approval required
+
+## Authentication
+GitHub Actions uses AWS IAM OIDC – no access keys or secrets are stored.
+
+## How CI/CD Works
+1. Pull request → Terraform plan
+2. Merge to main → Preprod apply
+3. Manual approval → Prod apply
+
+## Terraform Backend
+- S3 backend with DynamoDB locking
+- State is environment‑scoped
+
+## Security
+- No IAM users
+- No access keys
+- Least‑privilege IAM roles
+- Environment‑level approvals
+
+## Local Usage
+```bash
+export AWS_PROFILE=preprod
+terraform init
+terraform plan
+``
