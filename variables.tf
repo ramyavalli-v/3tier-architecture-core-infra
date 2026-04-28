@@ -60,8 +60,3 @@ variable "github_branch" {
   type        = string
   default     = "main"
 }
-
-variable "codestar_connection_arn" {
-  description = "ARN of the AWS CodeStar Connection for GitHub. Create this via AWS Console: https://console.aws.amazon.com/codesuite/connections"
-  type        = string
-}
